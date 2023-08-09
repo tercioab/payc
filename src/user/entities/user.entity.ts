@@ -1,1 +1,8 @@
-export class User {}
+export class User {
+  id?: number;
+  name: string;
+  subName: string;
+  cpf: string;
+  email: string;
+  password: string;
+}
