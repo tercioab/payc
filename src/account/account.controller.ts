@@ -24,9 +24,9 @@ export class AccountController {
     return this.accountService.create(createAccountDto);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.accountService.findOne(+id);
+  @Get()
+  findOne(@CurrentUser() user: User) {
+    return this.accountService.findOne(user.id);
   }
 
   @Patch(':id')

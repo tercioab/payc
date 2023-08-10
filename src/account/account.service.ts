@@ -12,7 +12,7 @@ export class AccountService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} account`;
+    return this.prisma.account.findUnique({ where: { userId: id } });
   }
 
   update(id: number, updateAccountDto: UpdateAccountDto) {
