@@ -207,3 +207,34 @@ status: 200 OK
   "number": 10
 }
 ```
+
+
+# ACCOUNT 
+
+## Create
+
+### http://localhost:3000/account
+
+#### POST
+
+```
+na criação todos os dados já são preenchidos automaticamente
+acount: 0001, 
+agency: numero aleatorio de 6 digitos
+balance: 0
+```
+
+response: 
+
+
+status: 201 CREATED
+
+```
+{
+  "id": 5,
+  "balance": 0,
+  "acount": 115073,
+  "agency": "0001",
+  "userId": 15
+}
+```
