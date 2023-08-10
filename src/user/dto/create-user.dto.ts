@@ -16,6 +16,8 @@ export class CreateUserDto extends User {
   subName: string;
   @IsNotEmpty()
   @IsString()
+  @MinLength(11)
+  @MaxLength(11)
   cpf: string;
   @IsNotEmpty()
   @IsEmail()
