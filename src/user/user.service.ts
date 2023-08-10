@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
@@ -25,5 +25,22 @@ export class UserService {
 
   findByEmail(email: string) {
     return this.prisma.user.findUnique({ where: { email } });
+  }
+
+  async checkIfEmailOrCPFExists(email: string, cpf: string) {
+    const existingUser = await this.prisma.user.findFirst({
+      where: {
+        OR: [{ email }, { cpf }],
+      },
+    });
+
+    if (existingUser) {
+      if (existingUser.email === email) {
+        throw new HttpException('Email already in use', HttpStatus.CONFLICT);
+      }
+      if (existingUser.cpf === cpf) {
+        throw new HttpException('CPF already in use', HttpStatus.CONFLICT);
+      }
+    }
   }
 }
