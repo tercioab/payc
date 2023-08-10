@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  HttpCode,
+  HttpStatus,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserService } from './user.service';
 import { IsPublic } from 'src/auth/decorators/is-public.dedcorator';
@@ -27,6 +35,7 @@ export class UserController {
     return this.userService.update(updateUserDto, user.id);
   }
 
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete()
   async delete(@CurrentUser() user: User) {
     return this.userService.delete(user.id);

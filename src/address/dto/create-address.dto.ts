@@ -1,6 +1,7 @@
 import { IsString, MinLength, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateAddressDto {
+  userId: number;
   @IsNotEmpty()
   @IsNumber()
   @MinLength(8)
