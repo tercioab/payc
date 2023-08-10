@@ -14,7 +14,7 @@ model User {
   id       Int       @id @default(autoincrement())
   name     String
   subName  String?
-  cpf      Int       @unique
+  cpf      String    @unique
   email    String    @unique
   password String
   account  Account[]
