@@ -1,8 +1,8 @@
 # Register
 
-## POST
-
 ### http://localhost:3000/user
+
+#### POST
 
 body:
 
@@ -32,9 +32,11 @@ status: 201 created
 
 # Login
 
-## POST
-
 ### http://localhost:3000/login
+
+#### POST
+
+
 
 body:
 
@@ -57,7 +59,9 @@ status: 200 OK
 
 # Update
 
-## PATCH
+### http://localhost:3000/user
+
+#### PATCH
 
 body:
 
