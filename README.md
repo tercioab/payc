@@ -88,3 +88,21 @@ status: 200 OK
 "email": "walthercio@gmail.com",
 }
 ```
+
+# Delete
+
+### http://localhost:3000/user
+
+#### DELETE
+
+status: 200 OK
+
+```
+{
+  "id": 8,
+  "name": "tercio",
+  "subName": "almeida",
+  "cpf": "43338992101",
+  "email": "walthercio@gmail.com"
+}
+```

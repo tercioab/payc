@@ -52,6 +52,12 @@ export class UserService {
     };
   }
 
+  async delete(id: number) {
+    const deletedUser = await this.prisma.user.delete({ where: { id } });
+
+    return { ...deletedUser, password: undefined };
+  }
+
   async findByEmail(email: string) {
     return this.prisma.user.findUnique({ where: { email } });
   }
