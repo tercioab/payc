@@ -95,7 +95,7 @@ status: 200 OK
 
 #### DELETE
 
-status: 200 OK
+status: 204 NO CONTENT
 
 ```
 {
