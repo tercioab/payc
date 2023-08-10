@@ -8,6 +8,8 @@ export class UserController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
+    const { email, cpf } = createUserDto;
+    await this.userService.checkIfEmailOrCPFExists(email, cpf);
     return this.userService.create(createUserDto);
   }
 }
