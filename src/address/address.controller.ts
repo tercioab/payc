@@ -19,8 +19,8 @@ export class AddressController {
   }
 
   @Get()
-  findAll() {
-    return this.addressService.findAll();
+  findOne(@CurrentUser() user: User) {
+    return this.addressService.findOne(user.id);
   }
 
   @Patch(':id')
