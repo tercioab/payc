@@ -38,6 +38,6 @@ export class UserController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete()
   async delete(@CurrentUser() user: User) {
-    return this.userService.delete(user.id);
+    await this.userService.delete(user.id);
   }
 }
