@@ -1,6 +1,6 @@
-### Register
+# Register
 
-## http://localhost:3000/user
+### http://localhost:3000/user
 
 body:
 ```
@@ -24,11 +24,10 @@ status: 201 created
 "email": "walthercio@gmail.com"
 }
 ```
-##
 
-### Login
+# Login
 
-## http://localhost:3000/login
+### http://localhost:3000/login
 
 body:
 ```
