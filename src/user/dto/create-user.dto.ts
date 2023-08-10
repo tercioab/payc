@@ -5,20 +5,22 @@ import {
   Matches,
   MaxLength,
   MinLength,
-  IsNumber,
+  IsNotEmpty
 } from 'class-validator';
 
 export class CreateUserDto extends User {
+  @IsNotEmpty()
   @IsString()
   name: string;
   @IsString()
   subName: string;
-  @IsNumber()
-  @MinLength(11)
-  @MaxLength(11)
+  @IsNotEmpty()
+  @IsString()
   cpf: string;
+  @IsNotEmpty()
   @IsEmail()
   email: string;
+  @IsNotEmpty()
   @IsString()
   @MinLength(4)
   @MaxLength(20)
