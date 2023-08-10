@@ -171,3 +171,39 @@ status: 200 OK
   "userId": 12
 }
 ```
+
+
+
+## Update
+
+### http://localhost:3000/address
+
+#### PATCH
+
+body:
+
+```
+{
+  "cep": 12345678,
+  "city": "natal",
+  "state": "rio grande do nortp",
+  "district": "ponta negra",
+  "street": "avenida anhangueras",
+  "number": 10
+}
+```
+
+response:
+
+status: 200 OK
+
+```
+{
+  "cep": 12345678,
+  "city": "natal",
+  "state": "rio grande do nortp",
+  "district": "ponta negra",
+  "street": "avenida anhangueras",
+  "number": 10
+}
+```

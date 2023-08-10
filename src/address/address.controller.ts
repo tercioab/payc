@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch } from '@nestjs/common';
 import { AddressService } from './address.service';
 import { CreateAddressDto } from './dto/create-address.dto';
 import { UpdateAddressDto } from './dto/update-address.dto';
@@ -23,8 +23,11 @@ export class AddressController {
     return this.addressService.findOne(user.id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAddressDto: UpdateAddressDto) {
-    return this.addressService.update(+id, updateAddressDto);
+  @Patch()
+  async update(
+    @CurrentUser() user: User,
+    @Body() updateAddressDto: UpdateAddressDto,
+  ) {
+    return this.addressService.update(user.id, updateAddressDto);
   }
 }
