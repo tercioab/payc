@@ -1,4 +1,7 @@
-# Register
+
+# USER
+
+## Register
 
 ### http://localhost:3000/user
 
@@ -30,7 +33,7 @@ status: 201 created
 }
 ```
 
-# Login
+## Login
 
 ### http://localhost:3000/login
 
@@ -57,7 +60,7 @@ status: 200 OK
 }
 ```
 
-# Update
+## Update
 
 ### http://localhost:3000/user
 
@@ -89,7 +92,7 @@ status: 200 OK
 }
 ```
 
-# Delete
+## Delete
 
 ### http://localhost:3000/user
 
@@ -104,5 +107,103 @@ status: 204 NO CONTENT
   "subName": "almeida",
   "cpf": "43338992101",
   "email": "walthercio@gmail.com"
+}
+```
+
+# ADDRESS
+
+## CREATE
+
+### http://localhost:3000/address
+
+#### POST 
+
+
+
+Body:
+```
+{
+  "cep": 12345678,
+  "city": "natal",
+  "state": "rio grande do norte",
+  "district": "ponta negra",
+  "street": "avenida anhanguera",
+  "number": 8
+}
+```
+
+response: 
+
+status: 201 CREATED
+
+```
+{
+  "id": 6,
+  "cep": 12345678,
+  "city": "natal",
+  "state": "rio grande do norte",
+  "district": "ponta negra",
+  "street": "avenida anhanguera",
+  "number": 8,
+  "userId": 13
+}
+```
+
+## GET
+
+### http://localhost:3000/address
+
+#### GET
+
+response:
+
+status: 200 OK
+
+```
+{
+  "id": 3,
+  "cep": 12345678,
+  "city": "natal",
+  "state": "rio grande do norte",
+  "district": "ponta negra",
+  "street": "avenida anhanguera",
+  "number": 8,
+  "userId": 12
+}
+```
+
+
+
+## Update
+
+### http://localhost:3000/address
+
+#### PATCH
+
+body:
+
+```
+{
+  "cep": 12345678,
+  "city": "natal",
+  "state": "rio grande do nortp",
+  "district": "ponta negra",
+  "street": "avenida anhangueras",
+  "number": 10
+}
+```
+
+response:
+
+status: 200 OK
+
+```
+{
+  "cep": 12345678,
+  "city": "natal",
+  "state": "rio grande do nortp",
+  "district": "ponta negra",
+  "street": "avenida anhangueras",
+  "number": 10
 }
 ```

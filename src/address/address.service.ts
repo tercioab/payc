@@ -11,19 +11,16 @@ export class AddressService {
     return this.prisma.address.create({ data: { ...createAddressDto } });
   }
 
-  findAll() {
-    return `This action returns all address`;
-  }
-
   findOne(id: number) {
-    return `This action returns a #${id} address`;
+    return this.prisma.address.findUnique({ where: { userId: id } });
   }
 
-  update(id: number, updateAddressDto: UpdateAddressDto) {
-    return `This action updates a #${id} address`;
-  }
+  async update(userId: number, updateAddressDto: UpdateAddressDto) {
+    const updateAddress = await this.prisma.address.update({
+      where: { userId },
+      data: { ...updateAddressDto },
+    });
 
-  remove(id: number) {
-    return `This action removes a #${id} address`;
+    return updateAddress;
   }
 }
