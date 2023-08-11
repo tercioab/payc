@@ -118,6 +118,8 @@ status: 204 NO CONTENT
 
 #### GET
 
+status: 200 OK
+
 ```
 {
   "id": 8,
