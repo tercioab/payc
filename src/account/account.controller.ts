@@ -49,9 +49,25 @@ export class AccountController {
     return userFinded;
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAccountDto: UpdateAccountDto) {
-    return this.accountService.update(+id, updateAccountDto);
+  @Patch('withdrawn')
+  async withdrawn(@CurrentUser() user: User, @Body() amount: UpdateAccountDto) {
+    const userAccount = await this.findOne(user);
+    if (userAccount.balance < amount.amount) {
+      throw new HttpException(
+        'Insufficient balance for withdrawn.',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    const newBalance = userAccount.balance - amount.amount;
+    return this.accountService.updateBalance(user.id, newBalance);
+  }
+
+  @Patch('deposit')
+  async deposit(@CurrentUser() user: User, @Body() amount: UpdateAccountDto) {
+    const userAccount = await this.findOne(user);
+    const newBalance = userAccount.balance + amount.amount;
+    return this.accountService.updateBalance(user.id, newBalance);
   }
 
   @Post('transfer')
@@ -59,30 +75,13 @@ export class AccountController {
     @CurrentUser() sender: User,
     @Body() transferData: TransferDto,
   ) {
-    const senderUserAccount = await this.findOne(sender);
-
     const destinationUser = await this.userService.findByCpf(
       transferData.destinationCpf,
     );
-    const destinationUserAccount = await this.findOne(destinationUser);
-
-    if (senderUserAccount.balance < transferData.amount) {
-      throw new HttpException(
-        'Insufficient balance for transfer.',
-        HttpStatus.BAD_REQUEST,
-      );
-    }
-
-    const newSenderBalance = senderUserAccount.balance - transferData.amount;
-    const newDestinationBalance =
-      destinationUserAccount.balance + transferData.amount;
 
     await Promise.all([
-      this.accountService.updateBalance(sender.id, newSenderBalance),
-      this.accountService.updateBalance(
-        destinationUser.id,
-        newDestinationBalance,
-      ),
+      this.withdrawn(sender, transferData),
+      this.deposit(destinationUser, transferData),
     ]);
 
     return {
