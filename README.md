@@ -279,3 +279,32 @@ status: 200 OK
   "userId": 15
 }
 ```
+
+## TRANSFER 
+
+### http://localhost:3000/account/transfer
+
+#### POST
+
+
+body:
+
+```
+{
+  "destinationCpf": "43338992198",
+  "amount": 100
+}
+```
+
+response:
+
+status: 201 CREATED
+
+```
+{
+  "transferTo": "tercio",
+  "amount": 100,
+  "date": "2023-08-11T14:12:39.365Z",
+  "receiveTo": "tercio"
+}
+```
