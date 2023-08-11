@@ -33,4 +33,17 @@ export class AccountController {
   update(@Param('id') id: string, @Body() updateAccountDto: UpdateAccountDto) {
     return this.accountService.update(+id, updateAccountDto);
   }
+
+  @Patch(':cpfUser')
+  async transaction(
+    @Param('cpfUser') transaction: string,
+    @CurrentUser() user: User,
+    @Body() updateAccountDto: UpdateAccountDto,
+  ) {
+    // buscar user pelo cpf
+    // puxar id do user
+    // verificar o balance do usuario atual
+    // fazer a transação para o outro user
+    // let { balance } = await this.findOne(user);
+  }
 }
