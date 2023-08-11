@@ -35,9 +35,9 @@ model Address {
 
 model Account {
   id      Int  @id @default(autoincrement())
-  balance Int
+  balance Int  @default(0)
   acount  Int
-  agency  Int? @default(0001)
+  agency  String @default("0001")
   User    User @relation(fields: [userId], references: [id])
   userId  Int  @unique
 }

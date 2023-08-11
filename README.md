@@ -1,4 +1,6 @@
 
+!!!Todas as rotas, exceto as de criação de usuário e login, requerem o uso do token de autorização (bearer token).!!!
+
 # USER
 
 ## Register
@@ -33,7 +35,7 @@ status: 201 created
 }
 ```
 
-## Login
+## LOGIN
 
 ### http://localhost:3000/login
 
@@ -60,7 +62,7 @@ status: 200 OK
 }
 ```
 
-## Update
+## UPDATE
 
 ### http://localhost:3000/user
 
@@ -92,7 +94,7 @@ status: 200 OK
 }
 ```
 
-## Delete
+## DELETE
 
 ### http://localhost:3000/user
 
@@ -174,7 +176,7 @@ status: 200 OK
 
 
 
-## Update
+## UPDATE
 
 ### http://localhost:3000/address
 
@@ -205,5 +207,57 @@ status: 200 OK
   "district": "ponta negra",
   "street": "avenida anhangueras",
   "number": 10
+}
+```
+
+
+# ACCOUNT 
+
+## CREATE
+
+### http://localhost:3000/account
+
+#### POST
+
+```
+na criação todos os dados já são preenchidos automaticamente
+acount: 0001, 
+agency: numero aleatorio de 6 digitos
+balance: 0
+```
+
+response: 
+
+
+status: 201 CREATED
+
+```
+{
+  "id": 5,
+  "balance": 0,
+  "acount": 115073,
+  "agency": "0001",
+  "userId": 15
+}
+```
+
+## GET
+
+### http://localhost:3000/account
+
+#### GET
+
+response: 
+
+
+status: 200 OK
+
+```
+{
+  "id": 5,
+  "balance": 0,
+  "acount": 115073,
+  "agency": "0001",
+  "userId": 15
 }
 ```
