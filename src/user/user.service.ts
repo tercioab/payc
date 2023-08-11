@@ -53,9 +53,7 @@ export class UserService {
   }
 
   async delete(id: number) {
-    const deletedUser = await this.prisma.user.delete({ where: { id } });
-
-    return { ...deletedUser, password: undefined };
+    await this.prisma.user.delete({ where: { id } });
   }
 
   async findByEmail(email: string) {
