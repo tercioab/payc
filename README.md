@@ -112,6 +112,22 @@ status: 204 NO CONTENT
 }
 ```
 
+# GET BY CPF
+
+### http://localhost:3000/user/43338992101
+
+#### GET
+
+```
+{
+  "id": 8,
+  "name": "tercio",
+  "subName": "almeida",
+  "cpf": "43338992101",
+  "email": "walthercio@gmail.com"
+}
+```
+=======
 # ADDRESS
 
 ## CREATE

@@ -60,6 +60,11 @@ export class UserService {
     return this.prisma.user.findUnique({ where: { email } });
   }
 
+  async findByCpf(cpf: string) {
+    const userByCpf = await this.prisma.user.findUnique({ where: { cpf } });
+    return { ...userByCpf, password: undefined };
+  }
+
   async checkIfEmailOrCPFExists(email: string, cpf: string) {
     const existingUser = await this.prisma.user.findFirst({
       where: {

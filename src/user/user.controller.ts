@@ -2,8 +2,10 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   HttpCode,
   HttpStatus,
+  Param,
   Patch,
   Post,
 } from '@nestjs/common';
@@ -39,5 +41,10 @@ export class UserController {
   @Delete()
   async delete(@CurrentUser() user: User) {
     await this.userService.delete(user.id);
+  }
+
+  @Get(':cpf')
+  async findByCpf(@Param('cpf') cpf: string) {
+    return this.userService.findByCpf(cpf);
   }
 }
