@@ -18,4 +18,11 @@ export class AccountService {
   update(id: number, updateAccountDto: UpdateAccountDto) {
     return `This action updates a #${id} account`;
   }
+
+  async updateBalance(userId: number, newBalance: number) {
+    return this.prisma.account.update({
+      where: { userId },
+      data: { balance: newBalance },
+    });
+  }
 }
