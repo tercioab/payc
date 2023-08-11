@@ -35,7 +35,6 @@ export class AccountController {
 
     createAccountDto.userId = user.id;
     createAccountDto.acount = randomNumberAcount;
-    createAccountDto.agency = '0001';
     return this.accountService.create(createAccountDto);
   }
 
