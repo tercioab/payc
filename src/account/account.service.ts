@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { CreateAccountDto } from './dto/create-account.dto';
-import { UpdateAccountDto } from './dto/update-account.dto';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -15,7 +14,10 @@ export class AccountService {
     return this.prisma.account.findUnique({ where: { userId: id } });
   }
 
-  update(id: number, updateAccountDto: UpdateAccountDto) {
-    return `This action updates a #${id} account`;
+  async updateBalance(userId: number, newBalance: number) {
+    return this.prisma.account.update({
+      where: { userId },
+      data: { balance: newBalance },
+    });
   }
 }
