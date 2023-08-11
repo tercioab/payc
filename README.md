@@ -308,3 +308,88 @@ status: 201 CREATED
   "receiveTo": "tercio"
 }
 ```
+
+## DEPOSIT
+
+### http://localhost:3000/account/deposit
+
+### PATCH
+
+body:
+
+```
+{
+  "amount": 1000
+}
+```
+
+response:
+
+status: 200 OK
+
+```
+{
+  "id": 1,
+  "balance": 14231,
+  "acount": 773835,
+  "agency": "001",
+  "userId": 13
+}
+```
+
+
+## WITHDRAWN
+
+### http://localhost:3000/account/withdrawn
+
+### PATCH
+
+body:
+
+```
+{
+  "amount": 1000
+}
+```
+
+response:
+
+status: 200 OK
+
+```
+{
+  "id": 1,
+  "balance": 14231,
+  "acount": 773835,
+  "agency": "001",
+  "userId": 13
+}
+```
+
+
+## TRANSFER
+
+### http://localhost:3000/account/transfer
+
+### POST
+
+body:
+
+```
+{
+  "destinationCpf": "43338992128",
+  "amount": 22
+}
+```
+
+response:
+
+status: 200 OK
+
+```
+{
+  "transferTo": "tercio",
+  "amount": 22,
+  "date": "2023-08-11T21:55:02.035Z"
+}
+```
