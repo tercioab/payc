@@ -112,7 +112,7 @@ status: 204 NO CONTENT
 }
 ```
 
-# GET BY CPF
+## GET BY CPF
 
 ### http://localhost:3000/user/43338992101
 
@@ -127,7 +127,7 @@ status: 204 NO CONTENT
   "email": "walthercio@gmail.com"
 }
 ```
-=======
+
 # ADDRESS
 
 ## CREATE
