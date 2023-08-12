@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { HistoricService } from './historic.service';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CreateHistoricDto } from './dto/create-historic.dto';
-import { UpdateHistoricDto } from './dto/update-historic.dto';
+import { HistoricService } from './historic.service';
+import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
+import { User } from '@prisma/client';
 
 @Controller('historic')
 export class HistoricController {
@@ -13,22 +14,7 @@ export class HistoricController {
   }
 
   @Get()
-  findAll() {
-    return this.historicService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.historicService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateHistoricDto: UpdateHistoricDto) {
-    return this.historicService.update(+id, updateHistoricDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.historicService.remove(+id);
+  findAll(@CurrentUser() user: User) {
+    return this.historicService.findAll(user.id);
   }
 }

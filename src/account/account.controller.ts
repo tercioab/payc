@@ -4,7 +4,6 @@ import {
   Post,
   Body,
   Patch,
-  Param,
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
@@ -15,11 +14,13 @@ import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { User } from '@prisma/client';
 import { UserService } from 'src/user/user.service';
 import { TransferDto } from './dto/transfer.dto';
+import { HistoricService } from 'src/historic/historic.service';
 
 @Controller('account')
 export class AccountController {
   constructor(
     private readonly accountService: AccountService,
+    private readonly historicService: HistoricService,
     private readonly userService: UserService,
   ) {}
 
@@ -40,13 +41,14 @@ export class AccountController {
 
   @Get()
   async findOne(@CurrentUser() user: User) {
-    const userFinded = await this.accountService.findOne(user.id);
-
-    if (!user) {
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    const acountFinded = await this.accountService.findOne(user.id);
+    if (!acountFinded) {
+      throw new HttpException(
+        `Acount of user ${user.name} not found`,
+        HttpStatus.NOT_FOUND,
+      );
     }
-
-    return userFinded;
+    return acountFinded;
   }
 
   @Patch('withdrawn')
@@ -79,15 +81,30 @@ export class AccountController {
       transferData.destinationCpf,
     );
 
+    if (!destinationUser) {
+      throw new HttpException('User not found.', HttpStatus.NOT_FOUND);
+    }
+
     await Promise.all([
       this.withdrawn(sender, transferData),
       this.deposit(destinationUser, transferData),
     ]);
 
-    return {
+    const transferTo = {
       transferTo: destinationUser.name,
       amount: transferData.amount,
-      date: new Date(),
+      userId: sender.id,
     };
+
+    const receivedFrom = {
+      receivedFrom: sender.name,
+      amount: transferData.amount,
+      userId: destinationUser.id,
+    };
+
+    await this.historicService.create(transferTo);
+    await this.historicService.create(receivedFrom);
+
+    return transferTo;
   }
 }
