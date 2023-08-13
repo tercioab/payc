@@ -393,3 +393,30 @@ status: 200 OK
   "date": "2023-08-11T21:55:02.035Z"
 }
 ```
+
+# HISTORIC
+
+## GET 
+
+### http://localhost:3000/historic
+
+#### GET 
+
+
+response:
+
+status: 200 OK
+
+```
+[
+  {
+    "id": 9,
+    "transferTo": "danilo",
+    "receivedFrom": null,
+    "amount": 22,
+    "date": "2023-08-12T21:39:51.612Z",
+    "userId": 2
+  }
+  ...
+]
+```
