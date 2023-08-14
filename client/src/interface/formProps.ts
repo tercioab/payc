@@ -1,4 +1,5 @@
 export default interface FormProps {
     label: string;
-    type: string
+  type: string;
+  registerParam: string
   }

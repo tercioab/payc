@@ -10,12 +10,18 @@ import {
 	Link,
 } from "@chakra-ui/react";
 
-import InputPassword from "@/components/inputPassword";
-import InputBasic from "@/components/InputBasic";
-import TitleForm from "@/components/titleForm";
-import ButtonForm from "@/components/ButtonForm";
+import InputPassword from "@/components/form/inputPassword";
+import InputBasic from "@/components/form/InputBasic";
+import TitleForm from "@/components/form/titleForm";
+import ButtonForm from "@/components/form/buttonForm";
+import { FormProvider, useForm } from "react-hook-form";
+import formSignUp from "@/interface/formSignUp";
 
 export default function Signup() {
+
+	const methods = useForm<formSignUp>();
+	const onSubmit = (data: formSignUp) => console.log(data);
+
 	return (
 		<Flex
 			minH={"100vh"}
@@ -36,30 +42,34 @@ export default function Signup() {
 					boxShadow={"lg"}
 					p={8}
 				>
-					<Stack spacing={4}>
-						<HStack>
-							<Box>
-								<InputBasic type='text' label='first name' />
-							</Box>
-							<Box>
-								<InputBasic type='text' label='last name' />
-							</Box>
-						</HStack>
+					<FormProvider {...methods}>
+						<form onSubmit={methods.handleSubmit(onSubmit)} >
+							<Stack spacing={4}>
+								<HStack>
+									<Box>
+										<InputBasic type='text' label='name' registerParam="name" />
+									</Box>
+									<Box>
+										<InputBasic type='text' label='last name' registerParam="lastname" />
+									</Box>
+								</HStack>
 
-						<InputBasic type='email' label='email' />
-						<InputPassword />
-						<Stack spacing={10} pt={2}>
-							<ButtonForm title='sign up' />
-						</Stack>
-						<Stack pt={6}>
-							<Text align={"center"}>
-								Already a user?{" "}
-								<Link href='/login' color={"blue.400"}>
-									Login
-								</Link>
-							</Text>
-						</Stack>
-					</Stack>
+								<InputBasic type='email' label='email' registerParam="email" />
+								<InputPassword />
+								<Stack spacing={10} pt={2}>
+									<ButtonForm title='sign up' />
+								</Stack>
+								<Stack pt={6}>
+									<Text align={"center"}>
+										Already a user?{" "}
+										<Link href='/login' color={"blue.400"}>
+											Login
+										</Link>
+									</Text>
+								</Stack>
+							</Stack>
+						</form>
+					</FormProvider>
 				</Box>
 			</Stack>
 		</Flex>
