@@ -1,5 +1,6 @@
 'use client'
-
+import { useState } from 'react'
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {
   Flex,
   Box,
@@ -12,9 +13,12 @@ import {
   Heading,
   Text,
   useColorModeValue,
+  InputGroup,
+  InputRightElement,
 } from '@chakra-ui/react';
 
 export default function Login() {
+    const [showPassword, setShowPassword] = useState(false)
   return (
     <Flex
       minH={'100vh'}
@@ -35,9 +39,18 @@ export default function Login() {
               <FormLabel>Email address</FormLabel>
               <Input type="email" />
             </FormControl>
-            <FormControl id="password">
+            <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
-              <Input type="password" />
+              <InputGroup>
+                <Input type={showPassword ? 'text' : 'password'} />
+                <InputRightElement h={'full'}>
+                  <Button
+                    variant={'ghost'}
+                    onClick={() => setShowPassword((showPassword) => !showPassword)}>
+                    {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
             </FormControl>
             <Stack spacing={10}>
               <Stack
