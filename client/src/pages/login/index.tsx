@@ -5,12 +5,18 @@ import InputPassword from "@/components/form/inputPassword";
 import ButtonForm from "@/components/form/buttonForm";
 import { FormProvider, useForm } from "react-hook-form";
 import formLogin from "@/interface/formLogin";
-import { SubmitHandler } from 'react-hook-form';
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Login() {
 	const methods = useForm<formLogin>();
-	const onSubmit: SubmitHandler<formLogin> = (data) => console.log(data);
-	
+	const { signIn } = useContext(AuthContext);
+
+	async function handleSignIn(data: formLogin) {
+	  await signIn(data);
+	}
+  
+
 	return (
 		<Flex
 			minH={"100vh"}
@@ -26,22 +32,22 @@ export default function Login() {
 					boxShadow={"lg"}
 					p={8}
 				>
-					 <FormProvider {...methods} >
-					<form onSubmit={methods.handleSubmit(onSubmit)}>
-						<Stack spacing={4}>
-							<InputBasic label='email' type='email' registerParam="email"/>
+					<FormProvider {...methods}>
+						<form onSubmit={methods.handleSubmit(handleSignIn)}>
+							<Stack spacing={4}>
+								<InputBasic label='email' type='email' registerParam='email' />
 								<InputPassword />
-							<ButtonForm title='sign in' />
-						</Stack>
-						<Stack pt={6}>
-							<Text align={"center"}>
-								Not a user?{" "}
-								<Link href='/signup' color={"blue.400"}>
-									Sign Up
-								</Link>
-							</Text>
-						</Stack>
-					</form>
+								<ButtonForm title='sign in' />
+							</Stack>
+							<Stack pt={6}>
+								<Text align={"center"}>
+									Not a user?{" "}
+									<Link href='/signup' color={"blue.400"}>
+										Sign Up
+									</Link>
+								</Text>
+							</Stack>
+						</form>
 					</FormProvider>
 				</Box>
 			</Stack>
