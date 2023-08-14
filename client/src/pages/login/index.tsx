@@ -17,6 +17,7 @@ import {
   InputRightElement,
 } from '@chakra-ui/react';
 import TitleForm from '@/components/titleForm';
+import InputBasic from '@/components/InputBasic';
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false)
@@ -34,10 +35,7 @@ export default function Login() {
           boxShadow={'lg'}
           p={8}>
           <Stack spacing={4}>
-            <FormControl id="email">
-              <FormLabel>Email address</FormLabel>
-              <Input type="email" />
-            </FormControl>
+           <InputBasic label="email" type="email" />
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
               <InputGroup>
