@@ -24,5 +24,9 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.4",
     "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.4.0",
+    "@typescript-eslint/parser": "^6.4.0"
   }
 }
