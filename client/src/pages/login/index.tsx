@@ -4,10 +4,11 @@ import InputBasic from "@/components/form/InputBasic";
 import InputPassword from "@/components/form/inputPassword";
 import ButtonForm from "@/components/form/buttonForm";
 import { FormProvider, useForm } from "react-hook-form";
+import formLogin from "@/interface/formLogin";
 
 export default function Login() {
 	const methods = useForm();
-	const onSubmit = (data: any) => console.log(data);
+	const onSubmit = (data: formLogin) => console.log(data);
 	
 	return (
 		<Flex
@@ -28,7 +29,7 @@ export default function Login() {
 					<form onSubmit={methods.handleSubmit(onSubmit)}>
 						<Stack spacing={4}>
 							<InputBasic label='email' type='email'/>
-							<InputPassword label='password'/>
+								<InputPassword />
 							<ButtonForm title='sign in' />
 						</Stack>
 						<Stack pt={6}>
