@@ -15,11 +15,12 @@ import InputBasic from "@/components/form/InputBasic";
 import TitleForm from "@/components/form/titleForm";
 import ButtonForm from "@/components/form/buttonForm";
 import { FormProvider, useForm } from "react-hook-form";
+import formSignUp from "@/interface/formSignUp";
 
 export default function Signup() {
 
-	const methods = useForm();
-	const onSubmit = (data: any) => console.log(data);
+	const methods = useForm<formSignUp>();
+	const onSubmit = (data: formSignUp) => console.log(data);
 
 	return (
 		<Flex
@@ -46,14 +47,14 @@ export default function Signup() {
 							<Stack spacing={4}>
 								<HStack>
 									<Box>
-										<InputBasic type='text' label='first name' />
+										<InputBasic type='text' label='name' registerParam="name" />
 									</Box>
 									<Box>
-										<InputBasic type='text' label='last name' />
+										<InputBasic type='text' label='last name' registerParam="lastname" />
 									</Box>
 								</HStack>
 
-								<InputBasic type='email' label='email' />
+								<InputBasic type='email' label='email' registerParam="email" />
 								<InputPassword />
 								<Stack spacing={10} pt={2}>
 									<ButtonForm title='sign up' />
