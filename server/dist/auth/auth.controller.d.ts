@@ -4,6 +4,13 @@ export declare class AuthController {
     private readonly authService;
     constructor(authService: AuthService);
     login(req: AuthRequest): {
-        access_token: string;
+        token: string;
+        user: {
+            id?: number;
+            name: string;
+            subName: string;
+            cpf: string;
+            email: string;
+        };
     };
 }
