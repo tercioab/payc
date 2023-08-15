@@ -58,7 +58,14 @@ status: 200 OK
 
 ```
 {
-"access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwibmFtZSI6InRlcmNpbyIsInN1Yk5hbWUiOiJhbG1laWRhIiwiY3BmIjoiNDc0NDMyMjk4MDkiLCJlbWFpbCI6IndhbHRoZXJjaW8zQGdtYWlsLmNvbSIsImlhdCI9MTY5MTY2OTY1NCwiZXhwIjoxNjkxNzU2MDU0fQ.xJa0JQXtBvfRRO14ES50J5jLfUfRi7OhshUcMFbvRw3"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6ImRhbmlsbyIsInN1Yk5hbWUiOiJyb2NrbW9yZSIsImNwZiI6IjEyMzqxawNjc4OTEzIiwiZW1haWwiOiJkYW5pbG9AZ21haWwuY29tIiwiaWF0IjoxNjkyMDQ4Nzg2LCJleHAiOjE2OTIxMzUxODZ9.WHseJ-TYK-VIFkZY5FrDiTs7PVpwmlT1qyuqu9fe1DA",
+  "user": {
+    "id": 2,
+    "name": "danilo",
+    "subName": "rockmore",
+    "cpf": "12345678913",
+    "email": "danilo@gmail.com"
+  }
 }
 ```
 

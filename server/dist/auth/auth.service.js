@@ -33,7 +33,7 @@ let AuthService = exports.AuthService = class AuthService {
     login(user) {
         const { password: _ } = user, payload = __rest(user, ["password"]);
         const jwtToken = this.jwtService.sign(payload);
-        return { access_token: jwtToken };
+        return { token: jwtToken, user: payload };
     }
     async validateUser(email, password) {
         const user = await this.userService.findByEmail(email);
