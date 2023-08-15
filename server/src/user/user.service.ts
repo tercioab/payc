@@ -1,9 +1,4 @@
-import {
-  Injectable,
-  HttpException,
-  HttpStatus,
-  forwardRef,
-} from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
@@ -17,7 +12,6 @@ import { ModuleRef } from '@nestjs/core';
 export class UserService {
   constructor(
     private readonly prisma: PrismaService,
-    // private readonly authService: AuthService,
     private readonly moduleRef: ModuleRef,
   ) {}
 
