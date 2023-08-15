@@ -35,6 +35,38 @@ status: 201 created
 }
 ```
 
+
+## REFRESH TOKEN
+
+## http://localhost:3000/user/refreshtoken
+
+#### PUT
+
+body: 
+
+```
+{
+"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6ImRhbmlsbyIsInN1Yk5hbWUiOiJyb2NrbW9yZSIsImNwZiI6IjEyMzQ1Njc4OTMxIiwiZW1haWwiOiJkYW5pbG9AZ21haWwuY29tIiwiaWF0IjoxNjkyMTM1MTgxLCJleHAiOjE2OTIxMzUyMTF9.28lhIAeYF95tCsguXF22ChDMfkwvTu325SnVWSuqxlY"
+}
+```
+
+response: 
+
+status: 200 OK
+
+```
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6ImRhbmlsbyIsInN1Yk5hbWUiOiJyb2NrbW9yZSIsImNwZiI6IjEyMzQ1Njc4OTMxIiwiZW1haWwiOiJkYW5pbG9AZ21haWwuY29tIiwiaWF0IjoxNjkyMTM1MjIyLCJleHAiOjE2OTIxMzUyNTJ9.AoQ7XqfsNKetTDqoo_03PmEYG_sTRwkZHPUv4wvCgmw",
+  "user": {
+    "id": 2,
+    "name": "danilo",
+    "subName": "rockmore",
+    "cpf": "12345678931",
+    "email": "danilo@gmail.com"
+  }
+}
+```
+
 ## LOGIN
 
 ### http://localhost:3000/login
