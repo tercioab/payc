@@ -7,14 +7,15 @@ import {
   HttpStatus,
   Param,
   Patch,
+  Put,
   Post,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserService } from './user.service';
-import { IsPublic } from 'src/auth/decorators/is-public.dedcorator';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { User } from '@prisma/client';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { IsPublic } from '../auth/decorators/is-public.dedcorator';
 
 @Controller('user')
 export class UserController {
@@ -46,5 +47,10 @@ export class UserController {
   @Get(':cpf')
   async findByCpf(@Param('cpf') cpf: string) {
     return this.userService.findByCpf(cpf);
+  }
+  @IsPublic()
+  @Put('refreshtoken')
+  async refreshToken(@Body() data: UpdateUserDto) {
+    return this.userService.refreshToken(data);
   }
 }

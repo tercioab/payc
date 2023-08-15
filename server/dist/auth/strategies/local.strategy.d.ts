@@ -11,6 +11,7 @@ export declare class LocalStrategy extends LocalStrategy_base {
         subName: string;
         cpf: string;
         email: string;
+        refreshToken: string;
     }>;
 }
 export {};

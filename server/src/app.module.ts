@@ -11,7 +11,14 @@ import { AccountModule } from './account/account.module';
 import { HistoricModule } from './historic/historic.module';
 
 @Module({
-  imports: [PrismaModule, UserModule, AuthModule, AddressModule, AccountModule, HistoricModule],
+  imports: [
+    PrismaModule,
+    UserModule,
+    AuthModule,
+    AddressModule,
+    AccountModule,
+    HistoricModule,
+  ],
   controllers: [AppController],
   providers: [
     AppService,

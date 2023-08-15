@@ -1,11 +1,11 @@
-import { UserService } from '../user/user.service';
 import { User } from 'src/user/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
+import { ModuleRef } from '@nestjs/core';
 export declare class AuthService {
-    private readonly userService;
+    private readonly moduleRef;
     private readonly jwtService;
-    constructor(userService: UserService, jwtService: JwtService);
-    login(user: User): {
+    constructor(moduleRef: ModuleRef, jwtService: JwtService);
+    login(user: User): Promise<{
         token: string;
         user: {
             id?: number;
@@ -14,7 +14,7 @@ export declare class AuthService {
             cpf: string;
             email: string;
         };
-    };
+    }>;
     validateUser(email: string, password: string): Promise<{
         password: any;
         id: number;
@@ -22,5 +22,6 @@ export declare class AuthService {
         subName: string;
         cpf: string;
         email: string;
+        refreshToken: string;
     }>;
 }

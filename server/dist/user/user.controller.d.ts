@@ -13,6 +13,7 @@ export declare class UserController {
         subName: string;
         cpf: string;
         email: string;
+        refreshToken: string;
     }>;
     delete(user: User): Promise<void>;
     findByCpf(cpf: string): Promise<{
@@ -22,5 +23,16 @@ export declare class UserController {
         subName: string;
         cpf: string;
         email: string;
+        refreshToken: string;
+    }>;
+    refreshToken(data: UpdateUserDto): Promise<{
+        token: string;
+        user: {
+            id?: number;
+            name: string;
+            subName: string;
+            cpf: string;
+            email: string;
+        };
     }>;
 }

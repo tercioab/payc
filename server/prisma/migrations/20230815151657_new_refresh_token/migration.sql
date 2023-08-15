@@ -6,6 +6,7 @@ CREATE TABLE "User" (
     "cpf" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
+    "refreshToken" TEXT NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -45,16 +46,6 @@ CREATE TABLE "Account" (
     "userId" INTEGER NOT NULL,
 
     CONSTRAINT "Account_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "Token" (
-    "id" SERIAL NOT NULL,
-    "hash" TEXT NOT NULL,
-    "username" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
-
-    CONSTRAINT "Token_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex

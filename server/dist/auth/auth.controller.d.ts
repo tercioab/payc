@@ -3,7 +3,7 @@ import { AuthRequest } from './models/AuthRequest';
 export declare class AuthController {
     private readonly authService;
     constructor(authService: AuthService);
-    login(req: AuthRequest): {
+    login(req: AuthRequest): Promise<{
         token: string;
         user: {
             id?: number;
@@ -12,5 +12,5 @@ export declare class AuthController {
             cpf: string;
             email: string;
         };
-    };
+    }>;
 }

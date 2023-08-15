@@ -11,15 +11,16 @@ datasource db {
 }
 
 model User {
-  id       Int        @id @default(autoincrement())
-  name     String
-  subName  String?
-  cpf      String     @unique
-  email    String     @unique
-  password String
-  account  Account?
-  address  Address?
-  historic Historic[]
+  id           Int        @id @default(autoincrement())
+  name         String
+  subName      String?
+  cpf          String     @unique
+  email        String     @unique
+  password     String
+  refreshToken String?
+  account      Account?
+  address      Address?
+  historic     Historic[]
 }
 
 model Historic {
@@ -29,7 +30,7 @@ model Historic {
   amount       Int
   date         DateTime @default(now())
   user         User     @relation(fields: [userId], references: [id])
-  userId       Int   
+  userId       Int
 }
 
 model Address {

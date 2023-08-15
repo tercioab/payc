@@ -13,9 +13,12 @@ exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
 const bcrypt = require("bcrypt");
 const prisma_service_1 = require("../prisma/prisma.service");
+const auth_service_1 = require("../auth/auth.service");
+const core_1 = require("@nestjs/core");
 let UserService = exports.UserService = class UserService {
-    constructor(prisma) {
+    constructor(prisma, moduleRef) {
         this.prisma = prisma;
+        this.moduleRef = moduleRef;
     }
     async create(createUserDto) {
         const data = Object.assign(Object.assign({}, createUserDto), { password: await bcrypt.hash(createUserDto.password, 10) });
@@ -36,6 +39,24 @@ let UserService = exports.UserService = class UserService {
             data: Object.assign({}, updateUserDto),
         });
         return Object.assign(Object.assign({}, updateUser), { password: undefined });
+    }
+    async updateUserToken(email, token) {
+        return this.prisma.user.update({
+            where: { email: email },
+            data: { refreshToken: token },
+        });
+    }
+    async refreshToken(data) {
+        const authService = this.moduleRef.get(auth_service_1.AuthService, { strict: false });
+        const user = await this.prisma.user.findFirst({
+            where: { refreshToken: data.refreshToken },
+        });
+        if (user) {
+            return authService.login(user);
+        }
+        else {
+            throw new common_1.HttpException('Token not valid', common_1.HttpStatus.UNAUTHORIZED);
+        }
     }
     async delete(id) {
         await this.prisma.user.delete({ where: { id } });
@@ -65,6 +86,7 @@ let UserService = exports.UserService = class UserService {
 };
 exports.UserService = UserService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
+        core_1.ModuleRef])
 ], UserService);
 //# sourceMappingURL=user.service.js.map

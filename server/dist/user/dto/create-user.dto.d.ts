@@ -5,4 +5,5 @@ export declare class CreateUserDto extends User {
     cpf: string;
     email: string;
     password: string;
+    refreshToken: string;
 }

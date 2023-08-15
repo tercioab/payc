@@ -1,14 +1,25 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Injectable,
+  HttpException,
+  HttpStatus,
+  forwardRef,
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { AuthService } from 'src/auth/auth.service';
+import { ModuleRef } from '@nestjs/core';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    // private readonly authService: AuthService,
+    private readonly moduleRef: ModuleRef,
+  ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     const data: Prisma.UserCreateInput = {
@@ -50,6 +61,26 @@ export class UserService {
       ...updateUser,
       password: undefined,
     };
+  }
+
+  async updateUserToken(email: string, token: string) {
+    return this.prisma.user.update({
+      where: { email: email },
+      data: { refreshToken: token },
+    });
+  }
+
+  async refreshToken(data: UpdateUserDto) {
+    const authService = this.moduleRef.get(AuthService, { strict: false });
+    const user = await this.prisma.user.findFirst({
+      where: { refreshToken: data.refreshToken },
+    });
+
+    if (user) {
+      return authService.login(user);
+    } else {
+      throw new HttpException('Token not valid', HttpStatus.UNAUTHORIZED);
+    }
   }
 
   async delete(id: number) {

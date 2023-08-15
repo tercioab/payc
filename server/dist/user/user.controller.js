@@ -16,9 +16,9 @@ exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const create_user_dto_1 = require("./dto/create-user.dto");
 const user_service_1 = require("./user.service");
-const is_public_dedcorator_1 = require("../auth/decorators/is-public.dedcorator");
 const current_user_decorator_1 = require("../auth/decorators/current-user.decorator");
 const update_user_dto_1 = require("./dto/update-user.dto");
+const is_public_dedcorator_1 = require("../auth/decorators/is-public.dedcorator");
 let UserController = exports.UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
@@ -38,6 +38,9 @@ let UserController = exports.UserController = class UserController {
     }
     async findByCpf(cpf) {
         return this.userService.findByCpf(cpf);
+    }
+    async refreshToken(data) {
+        return this.userService.refreshToken(data);
     }
 };
 __decorate([
@@ -71,6 +74,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "findByCpf", null);
+__decorate([
+    (0, is_public_dedcorator_1.IsPublic)(),
+    (0, common_1.Put)('refreshtoken'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [update_user_dto_1.UpdateUserDto]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "refreshToken", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)('user'),
     __metadata("design:paramtypes", [user_service_1.UserService])

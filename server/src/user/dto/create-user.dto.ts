@@ -30,4 +30,5 @@ export class CreateUserDto extends User {
     message: 'password too weak',
   })
   password: string;
+  refreshToken: string;
 }
