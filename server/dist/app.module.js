@@ -18,11 +18,12 @@ const jwt_auth_guard_1 = require("./auth/guards/jwt-auth.guard");
 const address_module_1 = require("./address/address.module");
 const account_module_1 = require("./account/account.module");
 const historic_module_1 = require("./historic/historic.module");
+const token_module_1 = require("./token/token.module");
 let AppModule = exports.AppModule = class AppModule {
 };
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [prisma_module_1.PrismaModule, user_module_1.UserModule, auth_module_1.AuthModule, address_module_1.AddressModule, account_module_1.AccountModule, historic_module_1.HistoricModule],
+        imports: [prisma_module_1.PrismaModule, user_module_1.UserModule, auth_module_1.AuthModule, address_module_1.AddressModule, account_module_1.AccountModule, historic_module_1.HistoricModule, token_module_1.TokenModule],
         controllers: [app_controller_1.AppController],
         providers: [
             app_service_1.AppService,
