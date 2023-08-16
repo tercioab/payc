@@ -24,6 +24,7 @@ export function AuthProvider({ children }: childrenProps) {
 		updateUser();
 	}, []);
 
+
 	async function signIn(data: SignInData) {
 		const { token, user } = await requestPost("login", data);
 		setCookie(undefined, "payco.token", token, {
