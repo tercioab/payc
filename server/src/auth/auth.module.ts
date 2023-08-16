@@ -18,8 +18,13 @@ import { TokenModule } from 'src/token/token.module';
     UserModule,
     TokenModule,
     JwtModule.register({
+<<<<<<< HEAD
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '1d' },
+=======
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '30s' },
+>>>>>>> tercio-dev-new-refresh
     }),
   ],
   controllers: [AuthController],

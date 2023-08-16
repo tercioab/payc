@@ -12,7 +12,18 @@ import { HistoricModule } from './historic/historic.module';
 import { TokenModule } from './token/token.module';
 
 @Module({
+<<<<<<< HEAD
   imports: [PrismaModule, UserModule, AuthModule, AddressModule, AccountModule, HistoricModule, TokenModule],
+=======
+  imports: [
+    PrismaModule,
+    UserModule,
+    AuthModule,
+    AddressModule,
+    AccountModule,
+    HistoricModule,
+  ],
+>>>>>>> tercio-dev-new-refresh
   controllers: [AppController],
   providers: [
     AppService,
