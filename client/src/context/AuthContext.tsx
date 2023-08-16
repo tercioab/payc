@@ -1,7 +1,7 @@
-import { createContext, useState } from "react";
-import { setCookie } from "nookies";
+import { createContext, useState, useEffect } from "react";
+import { setCookie, parseCookies } from "nookies";
 import Router from "next/router";
-import requestPost from "../services/request";
+import { requestPut, requestPost } from "../services/request";
 import childrenProps from "@/interface/childrenProps";
 
 type User = {
@@ -29,13 +29,27 @@ export function AuthProvider({ children }: childrenProps) {
 
 	const isAuthenticated = !!user;
 
-	async function signIn(data: SignInData) {
-		const { token, user } = await requestPost.requestPost('login',  data);
+	// useEffect(() => {
+	// 	const inputUser = async () => {
+	// 		const { "nextauth.token": token } = parseCookies();
+	// 		if (token) {
+	// 			const data = await requestPut("user/refreshtoken", { refreshtoken: token });
+	// 			setUser(data?.user);
+	// 		}
+	// 		console.log(token);
+	// 	};
+	// 	inputUser();
+	// }, []);
 
+	async function signIn(data: SignInData) {
+		const { token, user } = await requestPost("login", data);
+
+		console.log(token, user);
 		setCookie(undefined, "nextauth.token", token, {
 			maxAge: 60 * 60 * 1, // 1 hour
 		});
 
+		console.log(user)
 		setUser(user);
 
 		Router.push("/dashboard");
