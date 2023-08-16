@@ -9,9 +9,10 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { AddressModule } from './address/address.module';
 import { AccountModule } from './account/account.module';
 import { HistoricModule } from './historic/historic.module';
+import { TokenModule } from './token/token.module';
 
 @Module({
-  imports: [PrismaModule, UserModule, AuthModule, AddressModule, AccountModule, HistoricModule],
+  imports: [PrismaModule, UserModule, AuthModule, AddressModule, AccountModule, HistoricModule, TokenModule],
   controllers: [AppController],
   providers: [
     AppService,
