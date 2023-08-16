@@ -6,7 +6,6 @@ import {
   HttpCode,
   HttpStatus,
   Body,
-  Put,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
@@ -23,5 +22,11 @@ export class AuthController {
   @Post('login')
   login(@Request() req: AuthRequest) {
     return this.authService.login(req.user);
+  }
+
+  @IsPublic()
+  @Post('decodeToken')
+  decodeToken(@Body() data: { token: string }) {
+    return this.authService.decodeToken(data);
   }
 }
