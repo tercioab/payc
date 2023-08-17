@@ -20,3 +20,11 @@ export type SignInData = {
 	email: string;
 	password: string;
 };
+
+export type registerUser = {
+	email: string;
+	password: string;
+	name: string;
+	subName: string;
+	cpf: string;
+}
