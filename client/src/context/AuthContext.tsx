@@ -1,8 +1,8 @@
 import Router from "next/router";
-import { destroyCookie, parseCookies, setCookie } from "nookies";
+import { parseCookies, setCookie } from "nookies";
 import { createContext, useEffect, useState } from "react";
-import { api, requestPost, requestPut } from "../services/api";
-import { SignInData, User, registerUser, AuthContextType, Props } from "./types/types";
+import { api, requestPost } from "../services/api";
+import { AuthContextType, Props, SignInData, User, registerUser } from "./types/types";
 
 export const AuthContext = createContext({} as AuthContextType);
 export function AuthProvider({ children }: Props) {
@@ -51,7 +51,7 @@ export function AuthProvider({ children }: Props) {
 
 		const account = await requestPost("account", {});
 		if (account.id) {
-			Router.push("/dashboard");
+			Router.push("/address");
 		}
 	}
 
