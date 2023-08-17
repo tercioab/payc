@@ -16,6 +16,37 @@ type AccountInfo = {
 	balance: number;
 };
 
+export const getServerSideProps: GetServerSideProps = async ctx => {
+	const { ["payco.token"]: token } = parseCookies(ctx);
+
+
+	if (!token) {
+		return {
+			redirect: {
+				destination: "/login",
+				permanent: false,
+			},
+		};
+	}
+
+	try {
+		const responseAccountInfo = await getApiClient(ctx).get("account");
+		return {
+			props: {
+				account: responseAccountInfo.data,
+			},
+		};
+	} catch (error) {
+		return {
+			redirect: {
+				destination: "/login",
+				permanent: false,
+			},
+		};
+	}
+};
+
+
 export default function BasicStatistics({ account }: { account: AccountInfo}) {
 
 	
@@ -46,32 +77,3 @@ export default function BasicStatistics({ account }: { account: AccountInfo}) {
 	);
 }
 
-export const getServerSideProps: GetServerSideProps = async ctx => {
-	const { ["payco.token"]: token } = parseCookies(ctx);
-
-
-	if (!token) {
-		return {
-			redirect: {
-				destination: "/login",
-				permanent: false,
-			},
-		};
-	}
-
-	try {
-		const responseAccount = await getApiClient(ctx).get("account");
-		return {
-			props: {
-				account: responseAccount.data,
-			},
-		};
-	} catch (error) {
-		return {
-			redirect: {
-				destination: "/login",
-				permanent: false,
-			},
-		};
-	}
-};
