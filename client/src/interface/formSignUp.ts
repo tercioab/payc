@@ -3,4 +3,5 @@ export default interface formSignUp {
     password: string;
     name: string;
     lastName: string;
+    cpf: number
 }
