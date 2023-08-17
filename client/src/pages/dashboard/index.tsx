@@ -1,19 +1,12 @@
-import { useContext, useEffect } from "react";
-import { AuthContext } from "../../context/AuthContext";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 import { Box, chakra, SimpleGrid } from "@chakra-ui/react";
 import { BsCashCoin, BsBank } from "react-icons/bs";
 import { GoLocation } from "react-icons/go";
 import StatsCard from "@/components/comons/StatsCard";
-import { ApiContext } from "@/context/ApiContext";
+import { getApiClient } from "@/services/axios";
 
-export default function BasicStatistics() {
-	const { account, fetchAccount } = useContext(ApiContext);
-
-	useEffect(() => {
-		fetchAccount();
-	}, []);
+export default function BasicStatistics({account}) {
 
 	return (
 		<Box maxW='7xl' mx={"auto"} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
@@ -41,8 +34,10 @@ export default function BasicStatistics() {
 	);
 }
 
+
 export const getServerSideProps: GetServerSideProps = async ctx => {
 	const { ["payco.token"]: token } = parseCookies(ctx);
+
 	if (!token) {
 		return {
 			redirect: {
@@ -52,7 +47,23 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
 		};
 	}
 
+
+
+	const data = await getApiClient(ctx).get('account')
+
+	console.log(data.status)
+	if (!data.status) {
+		return {
+			redirect: {
+				destination: "/address",
+				permanent: false,
+			},
+		};
+	}
+
 	return {
-		props: {},
+		props: {
+			account: data.data
+		},
 	};
 };
