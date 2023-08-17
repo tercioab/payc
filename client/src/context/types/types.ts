@@ -8,7 +8,13 @@ export type AuthContextType = {
 	isAuthenticated: boolean;
 	user: User | null;
 	signIn: (data: SignInData) => Promise<void>;
+	signUp: (data: registerUser) => Promise<void>
 };
+
+export type Props = {
+	children: string | JSX.Element | JSX.Element[]
+  }
+
 
 export type ApiContextType = {
 	isAuthenticated: boolean;

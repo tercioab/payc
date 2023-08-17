@@ -6,8 +6,14 @@ import { GoLocation } from "react-icons/go";
 import StatsCard from "@/components/comons/StatsCard";
 import { getApiClient } from "@/services/axios";
 
-export default function BasicStatistics({account}) {
+type AccountInfo = {
+	number: number;
+	acount: number;
+	agency: number;
+	balance: number;
+};
 
+export default function BasicStatistics({ account }: { account: AccountInfo }) {
 	return (
 		<Box maxW='7xl' mx={"auto"} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
 			<chakra.h1 textAlign={"center"} fontSize={"4xl"} py={10} fontWeight={"bold"}>
@@ -16,24 +22,23 @@ export default function BasicStatistics({account}) {
 			<SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
 				<StatsCard
 					title={"Saldo"}
-					stat={account?.balance}
+					stat={account?.balance.toString()}
 					icon={<BsCashCoin size={"3em"} />}
 				/>
 				<StatsCard
 					title={"acount"}
-					stat={account?.acount}
+					stat={account?.acount.toString()}
 					icon={<BsBank size={"3em"} />}
 				/>
 				<StatsCard
 					title={"Agencia"}
-					stat={account?.agency}
+					stat={account?.agency.toString()}
 					icon={<GoLocation size={"3em"} />}
 				/>
 			</SimpleGrid>
 		</Box>
 	);
 }
-
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
 	const { ["payco.token"]: token } = parseCookies(ctx);
@@ -47,12 +52,9 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
 		};
 	}
 
+	const response = await getApiClient(ctx).get("account");
 
-
-	const data = await getApiClient(ctx).get('account')
-
-	console.log(data.status)
-	if (!data.status) {
+	if (!response.data.id) {
 		return {
 			redirect: {
 				destination: "/address",
@@ -63,7 +65,7 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
 
 	return {
 		props: {
-			account: data.data
+			account: response.data,
 		},
 	};
 };

@@ -2,10 +2,13 @@ import Router from "next/router";
 import { parseCookies, setCookie } from "nookies";
 import { createContext, useEffect, useState } from "react";
 import { api, requestPost } from "../services/api";
-import { SignInData, registerUser } from "./types/types";
+import { SignInData, User, registerUser, AuthContextType, Props } from "./types/types";
 
-export const AuthContext = createContext({});
-export function AuthProvider({ children }) {
+
+
+
+export const AuthContext = createContext({} as AuthContextType);
+export function AuthProvider({ children }: Props) {
 	const [user, setUser] = useState<User | null>(null);
 
 	const isAuthenticated = !!user;
@@ -37,11 +40,10 @@ export function AuthProvider({ children }) {
 	}
 
 	async function signUp(data: registerUser) {
-		const response = await requestPost("user", data)
-		console.log(response)
+		const response = await requestPost("user", data);
+		console.log(response);
 		if (response.id) {
-			await requestPost('account') 
-			Router.push('/login')
+			Router.push("/login");
 		}
 	}
 

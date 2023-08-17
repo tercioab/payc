@@ -16,13 +16,20 @@ import { FormProvider, useForm } from "react-hook-form";
 import formSignUp from "@/interface/formSignUp";
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
+import { registerUser } from "@/context/types/types";
 
 export default function Signup() {
 	const methods = useForm<formSignUp>();
 	const { signUp } = useContext(AuthContext);
 	async function handleSignUp(data: formSignUp) {
-		console.log(data);
-		await signUp({ cpf: data.cpf.toString(), ...data });
+		const payload: registerUser = {
+			email: data.email,
+			password: data.password,
+			name: data.name,
+			subName: data.lastName,
+			cpf: data.cpf.toString()
+		}
+		await signUp(payload);
 	}
 
 	return (

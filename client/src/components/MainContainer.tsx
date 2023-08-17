@@ -1,9 +1,13 @@
-import childrenProps from "@/interface/childrenProps";
+// MainContainer.tsx
+import React from "react";
 
-export default function MainContainer({ children }: childrenProps) {
-	return (
-		<>
-			<main>{children}</main>
-		</>
-	);
+interface MainContainerProps {
+  children: React.ReactNode;
 }
+
+const MainContainer: React.FC<MainContainerProps> = ({ children }) => {
+  return <div>{children}</div>;
+};
+
+export default MainContainer;
+ 
