@@ -16,6 +16,7 @@ import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { User } from '@prisma/client';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { IsPublic } from '../auth/decorators/is-public.dedcorator';
+import { UpdateTokenUserDto } from './dto/update-user-token.dto';
 
 @Controller('user')
 export class UserController {
@@ -48,9 +49,10 @@ export class UserController {
   async findByCpf(@Param('cpf') cpf: string) {
     return this.userService.findByCpf(cpf);
   }
+
   @IsPublic()
   @Put('refreshtoken')
-  async refreshToken(@Body() data: UpdateUserDto) {
+  async refreshToken(@Body() data: UpdateTokenUserDto) {
     return this.userService.refreshToken(data);
   }
 }

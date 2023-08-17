@@ -7,6 +7,7 @@ import { User } from './entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { ModuleRef } from '@nestjs/core';
+import { UpdateTokenUserDto } from './dto/update-user-token.dto';
 
 @Injectable()
 export class UserService {
@@ -64,11 +65,13 @@ export class UserService {
     });
   }
 
-  async refreshToken(data: UpdateUserDto) {
+  async refreshToken(data: UpdateTokenUserDto) {
     const authService = this.moduleRef.get(AuthService, { strict: false });
     const user = await this.prisma.user.findFirst({
-      where: { refreshToken: data.refreshToken },
+      where: { refreshToken: data.oldtoken },
     });
+
+    console.log(user);
 
     if (user) {
       return authService.login(user);
