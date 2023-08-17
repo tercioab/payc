@@ -1,5 +1,3 @@
-"use client";
-
 import {
 	Flex,
 	Box,
@@ -16,11 +14,16 @@ import TitleForm from "@/components/form/titleForm";
 import ButtonForm from "@/components/form/buttonForm";
 import { FormProvider, useForm } from "react-hook-form";
 import formSignUp from "@/interface/formSignUp";
+import { useContext } from "react";
+import { AuthContext } from "@/context/AuthContext";
 
 export default function Signup() {
-
 	const methods = useForm<formSignUp>();
-	const onSubmit = (data: formSignUp) => console.log(data);
+	const { signUp } = useContext(AuthContext);
+	async function handleSignUp(data: formSignUp) {
+		console.log(data);
+		await signUp({ cpf: data.cpf.toString(), ...data });
+	}
 
 	return (
 		<Flex
@@ -43,18 +46,20 @@ export default function Signup() {
 					p={8}
 				>
 					<FormProvider {...methods}>
-						<form onSubmit={methods.handleSubmit(onSubmit)} >
+						<form onSubmit={methods.handleSubmit(handleSignUp)}>
 							<Stack spacing={4}>
 								<HStack>
 									<Box>
-										<InputBasic type='text' label='name' registerParam="name" />
+										<InputBasic type='text' label='name' registerParam='name' />
 									</Box>
 									<Box>
-										<InputBasic type='text' label='last name' registerParam="lastname" />
+										<InputBasic type='text' label='last name' registerParam='subName' />
 									</Box>
 								</HStack>
 
-								<InputBasic type='email' label='email' registerParam="email" />
+								<InputBasic type='number' label='cpf' registerParam='cpf' />
+
+								<InputBasic type='email' label='email' registerParam='email' />
 								<InputPassword />
 								<Stack spacing={10} pt={2}>
 									<ButtonForm title='sign up' />
