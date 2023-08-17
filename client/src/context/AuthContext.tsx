@@ -1,11 +1,8 @@
 import Router from "next/router";
-import { parseCookies, setCookie } from "nookies";
+import { destroyCookie, parseCookies, setCookie } from "nookies";
 import { createContext, useEffect, useState } from "react";
-import { api, requestPost } from "../services/api";
+import { api, requestPost, requestPut } from "../services/api";
 import { SignInData, User, registerUser, AuthContextType, Props } from "./types/types";
-
-
-
 
 export const AuthContext = createContext({} as AuthContextType);
 export function AuthProvider({ children }: Props) {
@@ -40,38 +37,52 @@ export function AuthProvider({ children }: Props) {
 	}
 
 	async function signUp(data: registerUser) {
-		const response = await requestPost("user", data);
-		console.log(response);
-		if (response.id) {
-			Router.push("/login");
+		console.log(data);
+		await requestPost("user", data);
+		const { token } = await requestPost("login", {
+			email: data.email,
+			password: data.password,
+		});
+
+		api.defaults.headers["Authorization"] = `Bearer ${token}`;
+		setCookie(undefined, "payco.token", token, {
+			maxAge: 60 * 60 * 1,
+		});
+
+		const account = await requestPost("account", {});
+		if (account.id) {
+			Router.push("/dashboard");
 		}
 	}
 
-	// async function refreshToken() {
-	// 	try {
-	// 		const cookies = parseCookies();
-	// 		const currentRefreshToken = cookies["payco.token"];
+	// useEffect(() => {
+	// 	async function refreshToken() {
+	// 		try {
+	// 			const cookies = parseCookies();
+	// 			const currentRefreshToken = cookies["payco.token"];
 
-	// 		if (!currentRefreshToken) {
+	// 			if (!currentRefreshToken) {
+	// 				Router.push("/login");
+	// 			}
+
+	// 			const { token } = await requestPut("user/refreshtoken", {
+	// 				oldtoken: currentRefreshToken,
+	// 			});
+
+	// 			api.defaults.headers["Authorization"] = `Bearer ${token}`;
+	// 			setCookie(undefined, "payco.token", token, {
+	// 				maxAge: 60 * 60 * 1, // 1 hour
+	// 			});
+	// 		} catch (error) {
+	// 			console.error("Error refreshing token:", error.message);
+	// 			destroyCookie(undefined, "payco.token");
+	// 			setUser(null);
 	// 			Router.push("/login");
-	// 			return;
 	// 		}
-
-	// 		const { token } = await requestPut("user/refreshtoken", {
-	// 			oldtoken: currentRefreshToken,
-	// 		});
-
-	// 		api.defaults.headers["Authorization"] = `Bearer ${token}`;
-	// 		setCookie(undefined, "payco.token", token, {
-	// 			maxAge: 60 * 60 * 1, // 1 hour
-	// 		});
-	// 	} catch (error) {
-	// 		console.error("Error refreshing token:", error.message);
-	// 		destroyCookie(undefined, "payco.token");
-	// 		setUser(null);
-	// 		Router.push("/login");
 	// 	}
-	// }
+
+	// 	refreshToken();
+	// }, []);
 
 	return (
 		<AuthContext.Provider value={{ user, isAuthenticated, signIn, signUp }}>

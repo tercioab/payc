@@ -5,6 +5,9 @@ import { BsCashCoin, BsBank } from "react-icons/bs";
 import { GoLocation } from "react-icons/go";
 import StatsCard from "@/components/comons/StatsCard";
 import { getApiClient } from "@/services/axios";
+// import { useContext } from "react";
+// import { AuthContext } from "@/context/AuthContext";
+// import { User } from "@/context/types/types";
 
 type AccountInfo = {
 	number: number;
@@ -13,11 +16,14 @@ type AccountInfo = {
 	balance: number;
 };
 
-export default function BasicStatistics({ account }: { account: AccountInfo }) {
+export default function BasicStatistics({ account }: { account: AccountInfo}) {
+
+	
+
 	return (
 		<Box maxW='7xl' mx={"auto"} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
 			<chakra.h1 textAlign={"center"} fontSize={"4xl"} py={10} fontWeight={"bold"}>
-				Sua conta
+			 {`Olá seja bem vindo a Sua conta`} 
 			</chakra.h1>
 			<SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
 				<StatsCard
@@ -43,6 +49,7 @@ export default function BasicStatistics({ account }: { account: AccountInfo }) {
 export const getServerSideProps: GetServerSideProps = async ctx => {
 	const { ["payco.token"]: token } = parseCookies(ctx);
 
+
 	if (!token) {
 		return {
 			redirect: {
@@ -52,20 +59,19 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
 		};
 	}
 
-	const response = await getApiClient(ctx).get("account");
-
-	if (!response.data.id) {
+	try {
+		const responseAccount = await getApiClient(ctx).get("account");
+		return {
+			props: {
+				account: responseAccount.data,
+			},
+		};
+	} catch (error) {
 		return {
 			redirect: {
-				destination: "/address",
+				destination: "/login",
 				permanent: false,
 			},
 		};
 	}
-
-	return {
-		props: {
-			account: response.data,
-		},
-	};
 };

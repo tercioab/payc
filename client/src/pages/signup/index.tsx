@@ -26,7 +26,7 @@ export default function Signup() {
 			email: data.email,
 			password: data.password,
 			name: data.name,
-			subName: data.lastName,
+			subName: data.subName,
 			cpf: data.cpf.toString()
 		}
 		await signUp(payload);
